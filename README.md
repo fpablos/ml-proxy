@@ -1,6 +1,6 @@
 # ML Proxy
 
-Proxy escalable, mediante intancias de docker
+Proxy basado en Docker SWARM
 
 ## Comandos a correr
 
@@ -10,7 +10,7 @@ Una vez que clone el repositorio, hay que traerse los repositorios que se usan c
 git submodule init
 git submodule update
 ```
-###Imagenes de Docker para los servicios
+### Imagenes de Docker para los servicios
 
 Vamos a correr los siguientes comandos parados en la base del directorio donde clonamos el repositorio:
 
@@ -28,7 +28,7 @@ Imagen para del balanceador de Descargamos;
 docker image build -t fpablos/balancer:latest --no-cache --file docker/balancer/Dockerfile docker/balancer/
 ```
 
-###Iniciamos el SWARM
+### Iniciamos el SWARM
 ```
 docker swarm init
 ```
