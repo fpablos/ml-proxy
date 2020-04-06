@@ -22,7 +22,7 @@ RUN go build -o ./bin/web-proxy-service .
 
 # Exponemos los puertos usados por el proxy
 EXPOSE 8081
-EXPOSE 8443
+#EXPOSE 8443
 
 # Ejecutamos
 CMD ["./bin/web-proxy-service"]

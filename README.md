@@ -7,6 +7,7 @@ Proxy basado en Docker SWARM
 Una vez que clone el repositorio, hay que traerse los repositorios que se usan como modulos con los siguientes comandos:
 
 ```
+cd web-proxy-service
 git submodule init
 git submodule update
 ```

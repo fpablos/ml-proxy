@@ -1,23 +1,7 @@
 version: '3'
 
 services:
-  proxy:
-    image: fpablos/proxy
-    ports:
-      - 8081:8081
-      - 8443:8443
-    deploy:
-      replicas: 50
-      restart_policy:
-        max_attempts: 3
-        condition: on-failure
-      update_config:
-        parallelism: 3
-        delay: 10s
-    links:
-      - "couchbase:couchbase"
-    networks:
-     - balance
+
   couchbase:
     image: fpablos/couchbase
     ports:
@@ -31,6 +15,23 @@ services:
       restart_policy:
         max_attempts: 3
         condition: on-failure
+    networks:
+     - balance
+
+  proxy:
+    image: fpablos/proxy
+    ports:
+      - 8081:8081
+    depends_on:
+      - couchbase
+    deploy:
+      replicas: 50
+      restart_policy:
+        max_attempts: 3
+        condition: on-failure
+      update_config:
+        parallelism: 3
+        delay: 10s
     networks:
      - balance
 
