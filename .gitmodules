@@ -1,0 +1,3 @@
+[submodule "web-proxy-service"]
+	path = web-proxy-service
+	url = https://github.com/fpablos/web-proxy-service
