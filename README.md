@@ -8,6 +8,7 @@ Una vez que clone el repositorio, hay que traerse los repositorios que se usan c
 
 ```
 cd web-proxy-service
+
 git submodule init
 git submodule update
 ```
@@ -19,12 +20,13 @@ Imagen para el servicio de proxy:
 ```
 docker image build -t fpablos/proxy:latest --no-cache --file docker/proxy/Dockerfile ./web-proxy-service
 ```
+
 Imagen para el servicio de couchbase:
 ```
 docker image build -t fpablos/couchbase:latest --no-cache --file docker/couchbase/Dockerfile docker/couchbase/
 ```
 
-Imagen para del balanceador de Descargamos;
+Imagen para el servico de balanceador de cargas:
 ```
 docker image build -t fpablos/balancer:latest --no-cache --file docker/balancer/Dockerfile docker/balancer/
 ```
@@ -38,6 +40,7 @@ Deployamos el stack de servicios declarados en `docker-compose.yml`
 ```
 docker stack deploy -c docker-compose.yml swarm-ml-proxy
 ```
+
 ## Comandos para verificar el estado de los servicios en el swarm
 
 ```
