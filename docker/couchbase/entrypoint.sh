@@ -54,16 +54,16 @@ echo "Setup the configuration..."
 echo "*** Insert initial config ***"
 
 curl http://${USER}:${PASS}@127.0.0.1:8093/query/service \
-  -d "statement=INSERT INTO ${PROXY_CONFIG} (KEY, VALUE) VALUES ( \"host\", {\"active\": false, \"hosts\": [{\"ip\": \"\", \"active\": false, \"max_connection\": 0}], \"paths\": [{\"path\": \"\", \"active\": false, \"max_connection\": 0}]}) RETURNING *"
+  -d "statement=INSERT INTO ${PROXY_CONFIG} (KEY, VALUE) VALUES ( \"host_127.0.0.1\", {\"active\": false, \"hosts\": [{\"ip\": \"\", \"active\": false, \"max_connection\": 0}], \"paths\": [{\"path\": \"\", \"active\": false, \"max_connection\": 0}]}) RETURNING *"
 curl http://${USER}:${PASS}@127.0.0.1:8093/query/service \
   -d "statement=INSERT INTO ${PROXY_CONFIG} (KEY, VALUE) VALUES ( \"blacklist\",  {\"ip\":[]}) RETURNING *"
 curl http://${USER}:${PASS}@127.0.0.1:8093/query/service \
-  -d "statement=INSERT INTO ${PROXY_STATISTICS} (KEY, VALUE) VALUES ( \"statistics\", {\"ip\": \"\", \"sucessful\": 0, \"rejected\": 0, \"hosts\": [{\"ip\": \"\", \"successful\": 0, \"rejected\": 0, \"date\": \"\"}], \"paths\": [{\"path\": \"\", \"successful\": 0, \"rejected\": 0, \"date\": \"\"}]}) RETURNING *"
+  -d "statement=INSERT INTO ${PROXY_STATISTICS} (KEY, VALUE) VALUES ( \"statistic_127.0.0.1\", {\"ip\": \"\", \"sucessful\": 0, \"rejected\": 0, \"hosts\": [{\"ip\": \"\", \"successful\": 0, \"rejected\": 0, \"date\": \"\"}], \"paths\": [{\"path\": \"\", \"successful\": 0, \"rejected\": 0, \"date\": \"\"}]}) RETURNING *"
 
 echo "*** Creating Indexes ***"
 curl http://${USER}:${PASS}@127.0.0.1:8093/query/service \
-  -d "statement=CREATE INDEX ip_index ON ${PROXY_CONFIG}(ip) USING GSI"
+  -d "statement=CREATE PRIMARY INDEX def_primary ON ${PROXY_CONFIG} USING GSI"
 curl http://${USER}:${PASS}@127.0.0.1:8093/query/service \
-  -d "statement=CREATE INDEX ip_index ON ${PROXY_STATISTICS}(ip) USING GSI"
+  -d "statement=CREATE PRIMARY INDEX def_primary ON ${PROXY_STATISTICS} USING GSI"
 
 fg 1
