@@ -1,8 +1,5 @@
-#Uso Alpine ya que la imagen que se genera es ~5MB aprox.
-FROM golang:alpine
+FROM golang:1.14
 LABEL maintainer="Federico Pablos"
-
-RUN apk add --no-cache git
 
 # Establecemos el directorio de trabajo actual dentro del contenedor
 WORKDIR /app/web-proxy-service
