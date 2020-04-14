@@ -2,16 +2,20 @@ version: '3'
 
 services:
 
-  couchbase:
+  couchbase_db:
     image: fpablos/couchbase
     ports:
       - 8091:8091
       - 8092:8092
       - 8093:8093
       - 8094:8094
+      - 8095:8095
+      - 8096:8096
       - 11210:11210
+      - 11211:11211
     deploy:
-      replicas: 1
+      mode: global
+      # replicas: 1
       restart_policy:
         max_attempts: 3
         condition: on-failure
@@ -23,7 +27,7 @@ services:
     ports:
       - 8081:8081
     depends_on:
-      - couchbase
+      - couchbase_db
     deploy:
       replicas: 50
       restart_policy:
@@ -32,26 +36,8 @@ services:
       update_config:
         parallelism: 3
         delay: 10s
-    links:
-      - "couchbase:couchbase"
     networks:
      - balance
-
-  # NOTA: Los dejo fuera del SWARM porque no es necesario que consuma recursos y el la base esta expuesta
-  #
-  # statisticsboard:
-  #   image: fpablos/statisticsboard
-  #   ports:
-  #     - 7000:7000
-  #   depends_on:
-  #     - couchbase
-  #   deploy:
-  #     replicas: 1
-  #     restart_policy:
-  #       max_attempts: 3
-  #       condition: on-failure
-  #   networks:
-  #     - balance
 
   # NOTA: Lo comento ya que voy a usar como balanceador de carga el que provee SWARM
   # En caso de no querer usarlo, descomentar y levantar con `docker-compose up -d`
