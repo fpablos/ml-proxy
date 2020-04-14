@@ -26,10 +26,11 @@ services:
     image: fpablos/proxy
     ports:
       - 8081:8081
+      - 8443:8443
     depends_on:
       - couchbase_db
     deploy:
-      replicas: 50
+      replicas: 10
       restart_policy:
         max_attempts: 3
         condition: on-failure
