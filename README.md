@@ -26,16 +26,15 @@ Imagen para el servicio de couchbase:
 docker image build -t fpablos/couchbase:latest --no-cache --file docker/couchbase/Dockerfile docker/couchbase/
 ```
 
-Imagen para el servico de balanceador de cargas:
-```
-docker image build -t fpablos/balancer:latest --no-cache --file docker/balancer/Dockerfile docker/balancer/
-```
-
 ### Iniciamos el SWARM
 ```
 docker swarm init
 ```
-Deployamos el stack de servicios declarados en `docker-compose.yml`
+Para poder unir más nodos workers, en el nodo manager corremos:
+```
+docker swarm join-token manager
+```
+Una vez que tenemos todos los nodos unidos al swarm, entonces deployamos el stack de servicios declarados en `docker-compose.yml`
 
 ```
 docker stack deploy -c docker-compose.yml swarm-ml-proxy
